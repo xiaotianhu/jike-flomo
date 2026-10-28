@@ -186,7 +186,7 @@
   const NAV_ITEMS = [
     { href: '/me',           text: '全部笔记', icon: 'M4 5h16M4 12h16M4 19h16' },
     { href: '/following',    text: '动态',     icon: 'M4 6h16M4 12h16M4 18h10' },
-    { href: '/',             text: '发现',     icon: 'M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z' },
+    { href: '/explore',       text: '发现',     icon: 'M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z' },
     { href: '/notification', text: '通知',     icon: 'M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 00-4-5.7V5a2 2 0 10-4 0v.3A6 6 0 006 11v3.2a2 2 0 01-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1' },
   ];
 
@@ -240,6 +240,11 @@
       const a = e.target.closest('a.jf-nav-item');
       if (!a) return;
       e.preventDefault();
+      // 复用原生发现入口，保留再次点击时刷新推荐的行为。
+      if (a.dataset.route === '/explore') {
+        const native = $('[class*=_desktopStack] a[href="/explore"]');
+        if (native) { native.click(); return; }
+      }
       window.__TSR_ROUTER__?.navigate?.({ to: a.getAttribute('href') })
         ?? (location.href = a.href);
     });
@@ -279,7 +284,7 @@
       const active =
         (r === '/me' && (path === '/me' || path.startsWith('/u/'))) ||
         (r === '/following' && path === '/following') ||
-        (r === '/' && path === '/') ||
+        (r === '/explore' && path === '/explore') ||
         (r === '/notification' && path.startsWith('/notification'));
       a.classList.toggle('active', !!active);
     });
