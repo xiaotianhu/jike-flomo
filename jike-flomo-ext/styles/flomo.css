@@ -36,6 +36,18 @@ html.jf-on body {
   font-size: 15px;
 }
 
+/* 原生搜索栏和搜索结果跟随 flomo 浅色皮肤，避免继承系统深色主题。 */
+html.jf-on {
+  --bg-body-1: var(--jf-bg);
+  --bg-on-body-1: var(--jf-card);
+  --bg-on-body-2: var(--jf-card);
+  --tint-primary: var(--jf-text);
+  --tint-secondary: var(--jf-text-2);
+  --tint-tertiary: var(--jf-text-2);
+  --tint-separator: #ededed;
+  color-scheme: light;
+}
+
 /* ---- 即刻原元素隐藏 ---- */
 html.jf-on [class*=_root_1nh1q_1][class*=_wrapper_],   /* What's New banner */
 html.jf-on [class*=_mobileCreateButtonWrapper],
